@@ -53,7 +53,7 @@ class LowercaseTest extends TestCase
     /**
      * @dataProvider redirectProvider
      */
-    public function testRedirect(string $uri, string $result, string $statusCode )
+    public function testRedirect(string $uri, string $result, string $statusCode)
     {
         $request = Factory::createServerRequest('GET', $uri);
 
@@ -68,12 +68,12 @@ class LowercaseTest extends TestCase
     /**
      * @dataProvider redirectProvider
      */
-    public function testCustomFactoryRedirect(string $uri, string $result, string $statusCode )
+    public function testCustomFactoryRedirect(string $uri, string $result, string $statusCode)
     {
         $request = Factory::createServerRequest('GET', $uri);
 
         $response = Dispatcher::run([
-            (new Lowercase())->redirect( Factory::getResponseFactory() ),
+            (new Lowercase())->redirect(Factory::getResponseFactory()),
         ], $request);
 
         $this->assertEquals($result, $response->getHeaderLine('location'));
@@ -124,5 +124,4 @@ class LowercaseTest extends TestCase
 
         $this->assertEquals($result, (string) $response->getBody());
     }
-
 }

@@ -48,28 +48,29 @@ class Lowercase implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $uri = $request->getUri();
-        $path = $this->lowercase( $uri->getPath() );
+        $path = $this->lowercase($uri->getPath());
 
-        if( $uri->getPath() !== $path ) {
-            if ( $this->responseFactory ) {
+        if ($uri->getPath() !== $path) {
+            if ($this->responseFactory) {
                 return $this->responseFactory->createResponse(301)
-                    ->withHeader('Location', (string) $uri->withPath($path) );
+                    ->withHeader('Location', (string) $uri->withPath($path));
             }
 
-            if( $this->attribute !== null ) {
-                $request = $request->withAttribute($this->attribute, $uri->getPath() );
+            if ($this->attribute !== null) {
+                $request = $request->withAttribute($this->attribute, $uri->getPath());
             }
 
-            $request = $request->withUri( $uri->withPath($path) );
+            $request = $request->withUri($uri->withPath($path));
         }
 
-        return $handler->handle( $request );
+        return $handler->handle($request);
     }
 
     /**
      * Make the Path Lowercase.
      */
-    private function lowercase(string $path): string {
+    private function lowercase(string $path): string
+    {
         if ($path === '') {
             return '';
         }
