@@ -5,7 +5,7 @@
 ![Testing][ico-ga]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Description of the middleware
+Middleware to set the uri path to lowercase. For example, ``/Foo/Bar/`` is converted to ``/foo/bar``. Useful if you define your routes as lowercase and want to make your routes case insensitive.
 
 ## Requirements
 
@@ -26,8 +26,8 @@ composer require middlewares/lowercase
 ```php
 $dispatcher = new Dispatcher([
     (new Middlewares\Lowercase())
-        ->option1()
-        ->option2($value)
+        ->redirect()
+        ->attribute()
 ]);
 
 $response = $dispatcher->dispatch(new ServerRequest());
@@ -35,13 +35,34 @@ $response = $dispatcher->dispatch(new ServerRequest());
 
 ## Usage
 
-### option1
+### redirect
 
-Option description
+If the path must be converted to lowercase, this option returns a 301 response redirecting to the new lowercase path. Optionally, you can provide a Psr\Http\Message\ResponseFactoryInterface that will be used to create the redirect response. If it's not defined, Middleware\Utils\Factory will be used to detect it automatically.
 
-### option2
+```php
+$responseFactory = new MyOwnResponseFactory();
 
-Option description
+//Simply set the path to lowercase
+$lowercase = new Middlewares\Lowercase();
+
+//Returns a redirect response to the new path
+$lowercase = (new Middlewares\Lowercase())->redirect();
+
+//Returns a redirect response to the new path using a specific response factory
+$lowercase = (new Middlewares\Lowercase())->redirect($responseFactory);
+```
+
+### attribute
+
+If the path must be converted to lowercase, this method will store the original path in an atrribute. If a custom attribute name is not passed in the default name ``pre-lowercase-path`` will be used.
+
+```php
+// Save the original non-lowercase uri in the default attribute "pre-lowercase-path"
+$lowercase = (new Middlewares\Lowercase())->attribute();
+
+// Save the original non-lowercase uri in the custom attribute "before-lowercase-uri"
+$lowercase = (new Middlewares\Lowercase())->attribute('before-lowercase-uri');
+```
 
 ---
 
