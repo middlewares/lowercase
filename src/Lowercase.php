@@ -25,9 +25,9 @@ class Lowercase implements MiddlewareInterface
     /**
      * Set the attribute name to store client's IP address.
      */
-    public function attribute(string $attribute = null): self
+    public function attribute(string $attribute): self
     {
-        $this->attribute = $attribute ?: "pre-lowercase-path";
+        $this->attribute = $attribute;
 
         return $this;
     }

@@ -27,7 +27,7 @@ composer require middlewares/lowercase
 $dispatcher = new Dispatcher([
     (new Middlewares\Lowercase())
         ->redirect()
-        ->attribute()
+        ->attribute('before-lowercase-uri')
 ]);
 
 $response = $dispatcher->dispatch(new ServerRequest());
@@ -54,13 +54,10 @@ $lowercase = (new Middlewares\Lowercase())->redirect($responseFactory);
 
 ### attribute
 
-If the path must be converted to lowercase, this method will store the original path in an atrribute. If a custom attribute name is not passed in the default name ``pre-lowercase-path`` will be used.
+If the path must be converted to lowercase, this method will store the original path in an atrribute.
 
 ```php
-// Save the original non-lowercase uri in the default attribute "pre-lowercase-path"
-$lowercase = (new Middlewares\Lowercase())->attribute();
-
-// Save the original non-lowercase uri in the custom attribute "before-lowercase-uri"
+// Save the original non-lowercase uri in the custom attribute "pre-lowercase-path"
 $lowercase = (new Middlewares\Lowercase())->attribute('before-lowercase-uri');
 ```
 

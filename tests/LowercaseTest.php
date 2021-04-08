@@ -97,24 +97,6 @@ class LowercaseTest extends TestCase
         $request = Factory::createServerRequest('GET', $uri);
 
         $response = Dispatcher::run([
-            (new Lowercase())->attribute(),
-
-            function ($request) {
-                echo $request->getAttribute('pre-lowercase-path');
-            },
-        ], $request);
-
-        $this->assertEquals($result, (string) $response->getBody());
-    }
-
-    /**
-     * @dataProvider attributeProvider
-     */
-    public function testCustomAttribute(string $uri, string $result)
-    {
-        $request = Factory::createServerRequest('GET', $uri);
-
-        $response = Dispatcher::run([
             (new Lowercase())->attribute('custom-attribute-name'),
 
             function ($request) {
