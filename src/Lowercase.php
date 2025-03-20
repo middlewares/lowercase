@@ -18,7 +18,7 @@ class Lowercase implements MiddlewareInterface
     private $responseFactory;
 
     /**
-     * @var string The attribute name
+     * @var string|null The attribute name
      */
     private $attribute = null;
 
@@ -35,7 +35,7 @@ class Lowercase implements MiddlewareInterface
     /**
      * Whether returns a 301 response to the new path.
      */
-    public function redirect(ResponseFactoryInterface $responseFactory = null): self
+    public function redirect(?ResponseFactoryInterface $responseFactory = null): self
     {
         $this->responseFactory = $responseFactory ?: Factory::getResponseFactory();
 
