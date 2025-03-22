@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Middlewares\Tests;
 
 use Middlewares\Lowercase;
@@ -9,6 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 class LowercaseTest extends TestCase
 {
+    /**
+     * @return array<string[]>
+     */
     public function lowercaseProvider(): array
     {
         return [
@@ -23,7 +28,7 @@ class LowercaseTest extends TestCase
     /**
      * @dataProvider lowercaseProvider
      */
-    public function testLowercase(string $uri, string $result)
+    public function testLowercase(string $uri, string $result): void
     {
         $request = Factory::createServerRequest('GET', $uri);
 
@@ -39,6 +44,9 @@ class LowercaseTest extends TestCase
         $this->assertEquals($result, (string) $response->getBody());
     }
 
+    /**
+     * @return array<string[]>
+     */
     public function redirectProvider(): array
     {
         return [
@@ -53,7 +61,7 @@ class LowercaseTest extends TestCase
     /**
      * @dataProvider redirectProvider
      */
-    public function testRedirect(string $uri, string $result, string $statusCode)
+    public function testRedirect(string $uri, string $result, string $statusCode): void
     {
         $request = Factory::createServerRequest('GET', $uri);
 
@@ -68,7 +76,7 @@ class LowercaseTest extends TestCase
     /**
      * @dataProvider redirectProvider
      */
-    public function testCustomFactoryRedirect(string $uri, string $result, string $statusCode)
+    public function testCustomFactoryRedirect(string $uri, string $result, string $statusCode): void
     {
         $request = Factory::createServerRequest('GET', $uri);
 
@@ -80,6 +88,9 @@ class LowercaseTest extends TestCase
         $this->assertEquals($statusCode, (string) $response->getStatusCode());
     }
 
+    /**
+     * @return array<string[]>
+     */
     public function attributeProvider(): array
     {
         return [
@@ -92,7 +103,7 @@ class LowercaseTest extends TestCase
     /**
      * @dataProvider attributeProvider
      */
-    public function testAttribute(string $uri, string $result)
+    public function testAttribute(string $uri, string $result): void
     {
         $request = Factory::createServerRequest('GET', $uri);
 

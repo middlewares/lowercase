@@ -1,0 +1,14 @@
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    inferPrivatePropertyTypeFromConstructor: true
+    treatPhpDocTypesAsCertain: false
+    level: 8
+    paths:
+        - src
+        - tests
+    ignoreErrors:
+        -
+            message: '#Property Middlewares\\Lowercase::\$attribute is never read, only written#'
+        -
+            message: '#Unreachable statement \- code above always terminates#'
+
